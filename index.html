@@ -113,11 +113,18 @@
 
         /* HERO SECTION */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding-top: 60px;
+            justify-content: space-between;
+            /* Split text and avatar */
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
         }
 
         .hero-text h1 {
@@ -148,6 +155,34 @@
             color: var(--bg-color);
             border-color: var(--accent);
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        /* AVATAR CONTAINER */
+        .hero-avatar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            position: relative;
+        }
+
+        /* SVG STYLES */
+        #dev-avatar {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.2));
+        }
+
+        .eye-socket {
+            fill: #0a0a0a;
+            stroke: var(--accent);
+            stroke-width: 2;
+        }
+
+        .pupil {
+            fill: var(--accent);
         }
 
         /* SECTIONS GENERAL */
@@ -266,7 +301,18 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column-reverse;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .hero-avatar {
+                height: 300px;
+                margin-bottom: 2rem;
+            }
+
             .section-title {
                 font-size: 2.5rem;
             }
@@ -292,14 +338,48 @@
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-text reveal">
-                <p>Deputy Manager @_VOIS & Cloud Architect</p>
-                <h1>ARCHITECTING<br>THE <span class="accent">FUTURE</span> OF<br>CLOUD.</h1>
-                <p>Specializing in GoLang, Kubernetes, and Multi-Cloud Architectures (AWS, GCP, Oracle).</p>
-                <a href="#work" class="cta-btn">Explore Work</a>
-            </div>
+    <section class="hero container">
+        <div class="hero-text reveal">
+            <p>Deputy Manager @_VOIS & Cloud Enthusiast</p>
+            <h1>ARCHITECTING<br>THE <span class="accent">FUTURE</span> OF<br>CLOUD.</h1>
+            <p>Specializing in GoLang, Kubernetes, and Multi-Cloud Architectures (AWS, GCP, Oracle).</p>
+            <a href="#work" class="cta-btn">Explore Work</a>
+        </div>
+
+        <div class="hero-avatar reveal">
+            <svg id="dev-avatar" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#222;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#111;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <path
+                    d="M200,50 C120,50 60,120 60,220 C60,320 100,380 200,380 C300,380 340,320 340,220 C340,120 280,50 200,50 Z"
+                    fill="url(#grad1)" stroke="#333" stroke-width="2" />
+
+                <path d="M130,150 C130,150 200,140 270,150 C270,280 240,320 200,320 C160,320 130,280 130,150 Z"
+                    fill="#1a1a1a" />
+
+                <path d="M110,170 L290,170 L290,230 C290,250 270,260 250,250 L150,250 C130,260 110,250 110,230 Z"
+                    fill="#000" stroke="#00f2ff" stroke-width="3" />
+
+                <line x1="190" y1="170" x2="210" y2="170" stroke="#00f2ff" stroke-width="3" />
+
+                <g class="eye-group" id="eye-left">
+                    <rect x="130" y="180" width="60" height="50" rx="10" fill="#111" />
+                    <circle class="pupil" cx="160" cy="205" r="8" />
+                </g>
+
+                <g class="eye-group" id="eye-right">
+                    <rect x="210" y="180" width="60" height="50" rx="10" fill="#111" />
+                    <circle class="pupil" cx="240" cy="205" r="8" />
+                </g>
+
+                <rect x="180" y="330" width="40" height="50" fill="#222" />
+                <path d="M60,380 Q200,420 340,380 L340,400 L60,400 Z" fill="#111" />
+            </svg>
         </div>
     </section>
 
@@ -312,7 +392,8 @@
             <span class="marquee-item">ORACLE CLOUD</span>
             <span class="marquee-item">MICROSERVICES</span>
             <span class="marquee-item">TERRAFORM</span>
-            <span class="marquee-item">GOLANG</span> <span class="marquee-item">KUBERNETES</span>
+            <span class="marquee-item">GOLANG</span>
+            <span class="marquee-item">KUBERNETES</span>
             <span class="marquee-item">AWS</span>
             <span class="marquee-item">GOOGLE CLOUD</span>
             <span class="marquee-item">ORACLE CLOUD</span>
@@ -427,24 +508,46 @@
     </footer>
 
     <script>
-        // Simple Scroll Reveal Script
+        // 1. SCROLL REVEAL SCRIPT
         window.addEventListener('scroll', reveal);
-
         function reveal() {
             var reveals = document.querySelectorAll('.reveal');
-
             for (var i = 0; i < reveals.length; i++) {
                 var windowheight = window.innerHeight;
                 var revealtop = reveals[i].getBoundingClientRect().top;
                 var revealpoint = 150;
-
                 if (revealtop < windowheight - revealpoint) {
                     reveals[i].classList.add('active');
                 }
             }
         }
-        // Trigger once on load
-        reveal();
+        reveal(); // Trigger once on load
+
+        // 2. EYE TRACKING SCRIPT
+        document.addEventListener('mousemove', (e) => {
+            const pupils = document.querySelectorAll('.pupil');
+
+            pupils.forEach((pupil) => {
+                // Get position of the eye
+                const rect = pupil.getBoundingClientRect();
+                const x = (rect.left + rect.right) / 2;
+                const y = (rect.top + rect.bottom) / 2;
+
+                // Calculate angle
+                const rad = Math.atan2(e.pageX - x, e.pageY - y);
+                const rot = (rad * (180 / Math.PI) * -1) + 180;
+
+                // Limit movement radius (so pupils stay in eye)
+                // We calculate the offset based on the angle
+                const r = 10; // radius of movement
+                const xOffset = Math.sin(rad) * r;
+                const yOffset = Math.cos(rad) * r;
+
+                // Apply transformation
+                // We use CSS transform to move the pupil from its center
+                pupil.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
     </script>
 </body>
 
