@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amartya Anshuman | Cloud Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent: #00f2ff;
+            /* Electric Cyan */
+            --card-bg: #161616;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* UTILS */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .accent {
+            color: var(--accent);
+        }
+
+        /* SCROLL REVEAL ANIMATION */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* HEADER */
+        header {
+            padding: 2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+            margin-left: 1.5rem;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 60px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 1px solid var(--text-primary);
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent);
+            color: var(--bg-color);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid #222;
+            padding-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* EXPERIENCE & PROJECTS GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #222;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .role {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack span {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            color: #bbb;
+        }
+
+        /* SKILLS SCROLL */
+        .skills-marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 2rem 0;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Space Grotesk';
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 0 2rem;
+            color: #222;
+            -webkit-text-stroke: 1px var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .marquee-item:hover {
+            color: var(--accent);
+            -webkit-text-stroke: 1px var(--accent);
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <div class="logo">AMARTYA<span class="accent">.</span></div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/amartyaanshuman" target="_blank"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/amartyaa" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:amartyanshuman.thakur@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-text reveal">
+                <p>Deputy Manager @_VOIS & Cloud Architect</p>
+                <h1>ARCHITECTING<br>THE <span class="accent">FUTURE</span> OF<br>CLOUD.</h1>
+                <p>Specializing in GoLang, Kubernetes, and Multi-Cloud Architectures (AWS, GCP, Oracle).</p>
+                <a href="#work" class="cta-btn">Explore Work</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="skills-marquee">
+        <div class="marquee-content">
+            <span class="marquee-item">GOLANG</span>
+            <span class="marquee-item">KUBERNETES</span>
+            <span class="marquee-item">AWS</span>
+            <span class="marquee-item">GOOGLE CLOUD</span>
+            <span class="marquee-item">ORACLE CLOUD</span>
+            <span class="marquee-item">MICROSERVICES</span>
+            <span class="marquee-item">TERRAFORM</span>
+            <span class="marquee-item">GOLANG</span> <span class="marquee-item">KUBERNETES</span>
+            <span class="marquee-item">AWS</span>
+            <span class="marquee-item">GOOGLE CLOUD</span>
+            <span class="marquee-item">ORACLE CLOUD</span>
+            <span class="marquee-item">MICROSERVICES</span>
+            <span class="marquee-item">TERRAFORM</span>
+        </div>
+    </div>
+
+    <section id="work">
+        <div class="container">
+            <h2 class="section-title reveal">EXPERIENCE</h2>
+            <div class="grid">
+                <div class="card reveal">
+                    <span class="role">Aug 2021 - Present</span>
+                    <h3>_VOIS (Vodafone)</h3>
+                    <p style="font-weight: bold; color: white;">Deputy Manager / Solutions Architect</p>
+                    <p>Architected highly scalable GoLang applications on Kubernetes & OpenShift. Led code migration
+                        from Python to GoLang, lowering costs by 65%.</p>
+                    <div class="tech-stack">
+                        <span>Go</span>
+                        <span>OpenShift</span>
+                        <span>K8s</span>
+                        <span>System Design</span>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <span class="role">2017 - 2021</span>
+                    <h3>Education</h3>
+                    <p style="font-weight: bold; color: white;">Vellore Institute of Technology</p>
+                    <p>B.Tech in Electronics & Communication Engineering. CGPA: 8.23.</p>
+                    <div class="tech-stack">
+                        <span>Electronics</span>
+                        <span>Communication</span>
+                        <span>Research</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title reveal">PROJECTS</h2>
+            <div class="grid">
+                <div class="card reveal">
+                    <h3>V-Collab</h3>
+                    <span class="role">Cloud Dev Environment</span>
+                    <p>A web-based workspace for full-stack app development hosted in private data centers consumed by
+                        1000+ developers.</p>
+                    <div class="tech-stack">
+                        <span>Go</span>
+                        <span>PostgreSQL</span>
+                        <span>gRPC</span>
+                        <span>Redis</span>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3>GKS (Group Kubernetes Service)</h3>
+                    <span class="role">Multi-Cloud Solution</span>
+                    <p>End-to-end solution to deploy applications on EKS, GKE, and OKE. Implemented across 8 tenancies
+                        and local markets.</p>
+                    <div class="tech-stack">
+                        <span>AWS Serverless</span>
+                        <span>Terraform</span>
+                        <span>ArgoCD</span>
+                        <span>DynamoDB</span>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <h3>Research Publications</h3>
+                    <span class="role">IEEE & Smart GenCon</span>
+                    <p>Published papers on Road Sign Detection for Robust Drive Controlling and EAR based Drowsiness
+                        Detection.</p>
+                    <div class="tech-stack">
+                        <span>AI/ML</span>
+                        <span>Computer Vision</span>
+                        <span>Research</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certs">
+        <div class="container">
+            <h2 class="section-title reveal">CERTIFICATIONS</h2>
+            <div class="grid">
+                <div class="card reveal" style="border-color: #333;">
+                    <h3>Google Cloud</h3>
+                    <p>Professional Cloud Architect</p>
+                </div>
+                <div class="card reveal" style="border-color: #333;">
+                    <h3>Oracle Cloud</h3>
+                    <p>Solutions Architect Professional (2023)</p>
+                </div>
+                <div class="card reveal" style="border-color: #333;">
+                    <h3>CodeFresh</h3>
+                    <p>GitOps Certified for ArgoCD</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h2>Let's Build Something Scalable.</h2>
+            <br>
+            <a href="mailto:amartyanshuman.thakur@gmail.com" class="cta-btn">Get In Touch</a>
+            <br><br><br>
+            <p>&copy; 2025 Amartya Anshuman. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Scroll Reveal Script
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+
+</html>
